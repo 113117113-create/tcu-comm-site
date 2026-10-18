@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學生作品展覽 | 慈濟大學傳播學系</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --jp-black: #111111;
+            --jp-dark-gray: #2c2c2c;
+            --jp-gray: #666666;
+            --jp-light-gray: #f4f5f7;
+            --jp-border: #e2e4e8;
+            --jp-accent: #8b0000;
+            --font-sans: 'Noto Sans TC', sans-serif;
+            --font-serif: 'Noto Serif TC', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--jp-dark-gray);
+            background-color: #ffffff;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* 導覽列 Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--jp-border);
+            z-index: 1000;
+            padding: 0 4rem;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--jp-black);
+            letter-spacing: 0.1em;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: var(--jp-gray);
+            letter-spacing: 0.15em;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background-color: var(--jp-black);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* 標題區塊 */
+        .page-header {
+            margin-top: 80px;
+            padding: 5rem 4rem 3rem;
+            max-width: 1300px;
+            margin-left: auto;
+            margin-right: auto;
+            border-bottom: 1px solid var(--jp-border);
+        }
+
+        .page-title-en {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            color: var(--jp-accent);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .page-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            color: var(--jp-black);
+            margin-top: 0.5rem;
+        }
+
+        /* 日式極簡互動選單 */
+        .filter-container {
+            max-width: 1300px;
+            margin: 2rem auto 0;
+            padding: 0 4rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--jp-border);
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--jp-gray);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--jp-black);
+            color: var(--jp-black);
+            background-color: var(--jp-light-gray);
+        }
+
+        /* 藝廊 Grid */
+        .gallery-section {
+            max-width: 1300px;
+            margin: 3rem auto 6rem;
+            padding: 0 4rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .work-card {
+            background: #ffffff;
+            border: 1px solid var(--jp-border);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .work-thumb {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-color: var(--jp-light-gray);
+            overflow: hidden;
+        }
+
+        .work-thumb img, 
+        .work-thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover .work-thumb img {
+            transform: scale(1.05);
+        }
+
+        .work-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: rgba(17, 17, 17, 0.85);
+            color: #ffffff;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            letter-spacing: 0.1em;
+        }
+
+        .work-info {
+            padding: 1.5rem;
+        }
+
+        .work-meta {
+            font-size: 0.75rem;
+            color: var(--jp-gray);
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .work-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--jp-black);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .work-desc {
+            font-size: 0.85rem;
+            color: var(--jp-gray);
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: var(--jp-black);
+            color: #ffffff;
+            padding: 4rem 4rem 2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666666;
+        }
+
+        @media (max-width: 992px) {
+            header, .page-header, .filter-container, .gallery-section { padding-left: 2rem; padding-right: 2rem; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-title">慈濟大學 傳播學系</span>
+                <span class="logo-sub">Dept. of Communication Studies</span>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">系所簡介</a></li>
+                    <li><a href="studentworks.html" class="active">學生作品</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <span class="page-title-en">Student Gallery</span>
+        <h1 class="page-title">學生創作展覽庫</h1>
+    </div>
+
+    <!-- 分類動態篩選按鈕 -->
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">全部作品</button>
+        <button class="filter-btn" data-filter="film">紀錄片 / 影音</button>
+        <button class="filter-btn" data-filter="photo">平面攝影</button>
+        <button class="filter-btn" data-filter="audio">聲音 / Podcast</button>
+        <button class="filter-btn" data-filter="news">專題報導</button>
+    </div>
+
+    <!-- 作品藝廊 (圖片與影片來源指向 ./graph/ 資料夾) -->
+    <section class="gallery-section">
+        <div class="gallery-grid">
+
+            <!-- 卡片 1 -->
+            <div class="work-card" data-category="film">
+                <div class="work-thumb">
+                    <img src="./graph/film_01.jpg" alt="被撐起的日常" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=600'">
+                    <span class="work-tag">紀錄片</span>
+                </div>
+                <div class="work-info">
+                    <div class="work-meta">
+                        <span>創作者：黃映瑜、周慈恩</span>
+                        <span>2025</span>
+                    </div>
+                    <h3 class="work-title">被撐起的日常 - 超高齡社會照顧現場</h3>
+                    <p class="work-desc">深入花蓮部落與偏鄉社區，記錄照顧者與高齡長者的真實生活互動與生命故事。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 2 -->
+            <div class="work-card" data-category="photo">
+                <div class="work-thumb">
+                    <img src="./graph/photo_01.jpg" alt="光語" onerror="this.src='https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600'">
+                    <span class="work-tag">平面攝影</span>
+                </div>
+                <div class="work-info">
+                    <div class="work-meta">
+                        <span>創作者：陳銘鴻</span>
+                        <span>2025</span>
+                    </div>
+                    <h3 class="work-title">光語・花東光影紀實</h3>
+                    <p class="work-desc">捕捉花蓮東海岸晨光與人物勞動的光影瞬間，呈現獨特人文地景。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 3 -->
+            <div class="work-card" data-category="audio">
+                <div class="work-thumb">
+                    <img src="./graph/audio_01.jpg" alt="山海聲音" onerror="this.src='https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=600'">
+                    <span class="work-tag">聲音敘事</span>
+                </div>
+                <div class="work-info">
+                    <div class="work-meta">
+                        <span>創作者：許沁恩</span>
+                        <span>2025</span>
+                    </div>
+                    <h3 class="work-title">山海交界處的傾聽</h3>
+                    <p class="work-desc">入圍金聲獎作品，結合田野採集聲響與口述歷史，共振東臺灣特有聲音記憶。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 4 (影音展示範例，可替換為 video 標籤) -->
+            <div class="work-card" data-category="film">
+                <div class="work-thumb">
+                    <!-- 若要改放實際影片檔，可改寫為： <video controls src="./graph/video_01.mp4"></video> -->
+                    <img src="./graph/film_02.jpg" alt="畢業展前導" onerror="this.src='https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600'">
+                    <span class="work-tag">影音創作</span>
+                </div>
+                <div class="work-info">
+                    <div class="work-meta">
+                        <span>創作者：傳播系第22屆畢展團隊</span>
+                        <span>2025</span>
+                    </div>
+                    <h3 class="work-title">微光成炬 畢業展形象短片</h3>
+                    <p class="work-desc">畢業展覽形象短片，詮釋傳播學子如同微小光芒匯聚成火炬之核心精神。</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="copyright">
+            &copy; Department of Communication Studies, Tzu Chi University.
+        </div>
+    </footer>
+
+    <!-- JavaScript：分類互動篩選邏輯 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const workCards = document.querySelectorAll('.work-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    workCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

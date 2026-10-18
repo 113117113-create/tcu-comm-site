@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慈濟大學 傳播學系暨碩士班 | Department of Communication Studies</title>
+    <!-- Google Fonts: 典雅日系字體與現代黑體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           日系極簡風格系統 (Japanese Minimalist Style)
+           ========================================== */
+        :root {
+            --jp-black: #111111;
+            --jp-dark-gray: #2c2c2c;
+            --jp-gray: #666666;
+            --jp-light-gray: #f4f5f7;
+            --jp-border: #e2e4e8;
+            --jp-accent: #8b0000; /* 日系朱紅 */
+            --font-sans: 'Noto Sans TC', -apple-system, sans-serif;
+            --font-serif: 'Noto Serif TC', 'Shippori Mincho', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--jp-dark-gray);
+            background-color: #ffffff;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 頂部 Header & Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--jp-border);
+            z-index: 1000;
+            padding: 0 4rem;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--jp-black);
+            letter-spacing: 0.1em;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: var(--jp-gray);
+            letter-spacing: 0.15em;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background-color: var(--jp-black);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hero 主視覺區 */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            height: calc(85vh - 80px);
+            min-height: 550px;
+            background-color: var(--jp-light-gray);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 65%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.95) grayscale(15%);
+            transition: transform 10s ease;
+        }
+
+        .hero:hover .hero-bg {
+            transform: scale(1.03);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffffff 35%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 4rem;
+        }
+
+        /* 日式直書特色 */
+        .vertical-title {
+            writing-mode: vertical-rl;
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--jp-black);
+            border-right: 1px solid var(--jp-border);
+            padding-right: 1.5rem;
+            max-height: 380px;
+        }
+
+        .hero-text-block {
+            max-width: 500px;
+            padding-top: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--jp-accent);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-desc {
+            font-size: 0.98rem;
+            color: var(--jp-gray);
+            margin-bottom: 2rem;
+            line-height: 2;
+        }
+
+        .btn-jp {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 28px;
+            border: 1px solid var(--jp-black);
+            background: transparent;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-jp:hover {
+            background-color: var(--jp-black);
+            color: #ffffff;
+        }
+
+        /* 通用區塊 */
+        section {
+            padding: 6rem 4rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--jp-border);
+            padding-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--jp-black);
+        }
+
+        .section-en {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--jp-gray);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 介紹 Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--jp-dark-gray);
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .f-card {
+            background-color: var(--jp-light-gray);
+            padding: 2rem;
+            border-left: 2px solid var(--jp-black);
+        }
+
+        .f-card h4 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .f-card p {
+            font-size: 0.85rem;
+            color: var(--jp-gray);
+            line-height: 1.7;
+        }
+
+        /* 最新訊息清單 */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-item {
+            display: grid;
+            grid-template-columns: 140px 120px 1fr;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--jp-border);
+            align-items: center;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .news-item:hover {
+            background-color: var(--jp-light-gray);
+            padding-left: 10px;
+        }
+
+        .news-date {
+            color: var(--jp-gray);
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        .news-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border: 1px solid var(--jp-border);
+            width: fit-content;
+            color: var(--jp-dark-gray);
+            text-align: center;
+        }
+
+        .news-title {
+            color: var(--jp-black);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--jp-black);
+            color: #ffffff;
+            padding: 5rem 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            border-bottom: 1px solid #333333;
+            padding-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-brand p {
+            color: #888888;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a {
+            color: #888888;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .copyright {
+            max-width: 1300px;
+            margin: 2rem auto 0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666666;
+            letter-spacing: 0.1em;
+        }
+
+        /* RWD 響應式 */
+        @media (max-width: 992px) {
+            header { padding: 0 2rem; }
+            section { padding: 4rem 2rem; }
+            .hero-content { padding: 0 2rem; flex-direction: column; }
+            .vertical-title { writing-mode: horizontal-tb; border-right: none; border-bottom: 1px solid var(--jp-border); padding-bottom: 1rem; padding-right: 0; }
+            .about-grid { grid-template-columns: 1fr; }
+            .news-item { grid-template-columns: 1fr; gap: 0.5rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-title">慈濟大學 傳播學系</span>
+                <span class="logo-sub">Dept. of Communication Studies</span>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">系所簡介</a></li>
+                    <li><a href="studentworks.html">學生作品</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主視覺 Banner -->
+    <section class="hero">
+        <!-- 圖片來源設定為 ./graph/hero_bg.jpg -->
+        <img src="./graph/hero_bg.jpg" alt="慈濟大學傳播學系主視覺" class="hero-bg" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200'">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="vertical-title">微光成炬・媒體敘事</div>
+            <div class="hero-text-block">
+                <p class="hero-subtitle">TCU Communication</p>
+                <p class="hero-desc">
+                    在數位浪潮中，我們培養兼具人文關懷與前瞻技術的專業傳播人才。透過新聞、影音創作與跨媒體整合，記錄時代真實脈動。
+                </p>
+                <a href="#about" class="btn-jp">探索系所特色 <span>→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 設系宗旨 -->
+    <section id="about">
+        <div class="section-header">
+            <div>
+                <span class="section-en">About Department</span>
+                <h2 class="section-title">設系宗旨與教育目標</h2>
+            </div>
+        </div>
+        
+        <div class="about-grid">
+            <div class="about-text">
+                <p>慈濟大學傳播學系暨碩士班立足於美麗的花蓮，致力於提供結合理論與實務的深厚傳播教育。我們強調「人文素養」為核心，輔以現代化影音製作、數位媒體應用及新聞敘事能力。</p>
+                <p>本系備有高階多媒體教室、數位實習廣播電臺及專業影音棚，鼓勵學生走出課堂，深入社區與國際現場，以鏡頭與文字傳遞具社會影響力的故事。</p>
+            </div>
+            <div class="feature-cards">
+                <div class="f-card">
+                    <h4>人文影像傳播</h4>
+                    <p>培育具備紀實攝影、紀錄片製作與當代影音美學的創作人才。</p>
+                </div>
+                <div class="f-card">
+                    <h4>聲音敘事與廣播</h4>
+                    <p>結合實習廣播電台，探索 Podcast 與數位聲音創作之極限。</p>
+                </div>
+                <div class="f-card">
+                    <h4>跨媒體新聞實務</h4>
+                    <p>訓練數據新聞、深度報導與當代數位社群媒體營運思維。</p>
+                </div>
+                <div class="f-card">
+                    <h4>國際與職場接軌</h4>
+                    <p>提供海外特派實習、海外交流及完整之業界實習鏈結制度。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最新消息 -->
+    <section id="news" style="background-color: #fafafa;">
+        <div class="section-header">
+            <div>
+                <span class="section-en">Latest News</span>
+                <h2 class="section-title">最新消息與榮譽</h2>
+            </div>
+        </div>
+
+        <div class="news-list">
+            <div class="news-item">
+                <span class="news-date">2026.03.20</span>
+                <span class="news-tag">榮譽榜</span>
+                <span class="news-title">恭賀！本系校友潘信安入圍第61屆金鐘獎《節目類：攝影獎》</span>
+            </div>
+            <div class="news-item">
+                <span class="news-date">2026.03.15</span>
+                <span class="news-tag">競賽捷報</span>
+                <span class="news-title">傳播系學生團隊入圍第23屆金聲獎校園廣播節目競賽「教育專題報導獎」</span>
+            </div>
+            <div class="news-item">
+                <span class="news-date">2026.02.28</span>
+                <span class="news-tag">學術活動</span>
+                <span class="news-title">【Slog3 攝影調光工作坊】講習與實作課程報名開始</span>
+            </div>
+            <div class="news-item">
+                <span class="news-date">2026.01.10</span>
+                <span class="news-tag">畢業展覽</span>
+                <span class="news-title">慈濟大學傳播學系第22屆畢業展「微光成炬」精彩成果呈現</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>慈濟大學 傳播學系暨碩士班</h3>
+                <p>970 花蓮市介仁街67號<br>TEL: 03-8572677 #35605<br>Email: commstudies@tcu.edu.tw</p>
+            </div>
+            <div class="footer-links">
+                <h4>快速連結</h4>
+                <ul>
+                    <li><a href="index.html">系所簡介</a></li>
+                    <li><a href="studentworks.html">學生作品</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>社群關注</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube Channel</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; Department of Communication Studies, Tzu Chi University. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript：內嵌平滑滾動 logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
